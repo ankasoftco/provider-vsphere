@@ -29,6 +29,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"vsphere_folder": config.IdentifierFromProvider,
 	"vsphere_tag": config.IdentifierFromProvider,
 	"vsphere_tag_category": config.IdentifierFromProvider,
+	"vsphere_distributed_port_group": config.IdentifierFromProvider,
+	"vsphere_distributed_virtual_switch": config.IdentifierFromProvider,
+	"vsphere_host_port_group": config.IdentifierFromProvider,
+	"vsphere_host_virtual_switch": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

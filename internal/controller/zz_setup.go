@@ -28,6 +28,10 @@ import (
 	vspherefolder "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspherefolder"
 	vspheretag "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspheretag"
 	vspheretagcategory "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspheretagcategory"
+	vspheredistributedportgroup "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspheredistributedportgroup"
+	vspheredistributedvirtualswitch "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspheredistributedvirtualswitch"
+	vspherehostportgroup "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspherehostportgroup"
+	vspherehostvirtualswitch "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspherehostvirtualswitch"
 	providerconfig "github.com/ankasoftco/provider-vsphere/internal/controller/providerconfig"
 )
 
@@ -54,6 +58,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vspherefolder.Setup,
 		vspheretag.Setup,
 		vspheretagcategory.Setup,
+		vspheredistributedportgroup.Setup,
+		vspheredistributedvirtualswitch.Setup,
+		vspherehostportgroup.Setup,
+		vspherehostvirtualswitch.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

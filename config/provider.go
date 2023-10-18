@@ -20,6 +20,10 @@ import (
 	vSphereDatacenter "github.com/ankasoftco/provider-vsphere/config/vsphere_datacenter"
 	vSphereFolder "github.com/ankasoftco/provider-vsphere/config/vsphere_folder"
 	vSphereTag "github.com/ankasoftco/provider-vsphere/config/vsphere_tag"
+	vSphereDistributedPortGroup "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_port_group"
+	vSphereDistributedVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_virtual_switch"
+	vSphereHostPortGroup "github.com/ankasoftco/provider-vsphere/config/vsphere_host_port_group"
+	vSphereHostVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_host_virtual_switch"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
@@ -59,6 +63,10 @@ func GetProvider() *ujconfig.Provider {
 		vSphereDatacenter.Configure,
 		vSphereFolder.Configure,
 		vSphereTag.Configure,
+		vSphereDistributedPortGroup.Configure,
+		vSphereDistributedVirtualSwitch.Configure,
+		vSphereHostPortGroup.Configure,
+		vSphereHostVirtualSwitch.Configure,
 	} {
 		configure(pc)
 	}
