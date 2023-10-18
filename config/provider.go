@@ -24,6 +24,8 @@ import (
 	vSphereDistributedVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_virtual_switch"
 	vSphereHostPortGroup "github.com/ankasoftco/provider-vsphere/config/vsphere_host_port_group"
 	vSphereHostVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_host_virtual_switch"
+	vSphereEntityPermissions "github.com/ankasoftco/provider-vsphere/config/vsphere_entity_permissions"
+	vSphereRole "github.com/ankasoftco/provider-vsphere/config/vsphere_role"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
@@ -67,6 +69,8 @@ func GetProvider() *ujconfig.Provider {
 		vSphereDistributedVirtualSwitch.Configure,
 		vSphereHostPortGroup.Configure,
 		vSphereHostVirtualSwitch.Configure,
+		vSphereEntityPermissions.Configure,
+		vSphereRole.Configure,
 	} {
 		configure(pc)
 	}

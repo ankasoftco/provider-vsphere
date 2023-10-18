@@ -33,6 +33,8 @@ import (
 	vspherehostportgroup "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspherehostportgroup"
 	vspherehostvirtualswitch "github.com/ankasoftco/provider-vsphere/internal/controller/networking/vspherehostvirtualswitch"
 	providerconfig "github.com/ankasoftco/provider-vsphere/internal/controller/providerconfig"
+	vsphereentitypermissions "github.com/ankasoftco/provider-vsphere/internal/controller/security/vsphereentitypermissions"
+	vsphererole "github.com/ankasoftco/provider-vsphere/internal/controller/security/vsphererole"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -63,6 +65,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vspherehostportgroup.Setup,
 		vspherehostvirtualswitch.Setup,
 		providerconfig.Setup,
+		vsphereentitypermissions.Setup,
+		vsphererole.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

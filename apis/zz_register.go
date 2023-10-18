@@ -14,6 +14,7 @@ import (
 	v1alpha1host_and_cluster_management "github.com/ankasoftco/provider-vsphere/apis/host_and_cluster_management/v1alpha1"
 	v1alpha1inventory "github.com/ankasoftco/provider-vsphere/apis/inventory/v1alpha1"
 	v1alpha1networking "github.com/ankasoftco/provider-vsphere/apis/networking/v1alpha1"
+	v1alpha1security "github.com/ankasoftco/provider-vsphere/apis/security/v1alpha1"
 	v1alpha1apis "github.com/ankasoftco/provider-vsphere/apis/v1alpha1"
 	v1beta1 "github.com/ankasoftco/provider-vsphere/apis/v1beta1"
 )
@@ -25,6 +26,7 @@ func init() {
 		v1alpha1host_and_cluster_management.SchemeBuilder.AddToScheme,
 		v1alpha1inventory.SchemeBuilder.AddToScheme,
 		v1alpha1networking.SchemeBuilder.AddToScheme,
+		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 	)
