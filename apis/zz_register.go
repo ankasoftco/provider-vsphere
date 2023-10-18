@@ -18,6 +18,7 @@ import (
 	v1alpha1storage "github.com/ankasoftco/provider-vsphere/apis/storage/v1alpha1"
 	v1alpha1apis "github.com/ankasoftco/provider-vsphere/apis/v1alpha1"
 	v1beta1 "github.com/ankasoftco/provider-vsphere/apis/v1beta1"
+	v1alpha1virtual_machine "github.com/ankasoftco/provider-vsphere/apis/virtual_machine/v1alpha1"
 )
 
 func init() {
@@ -31,6 +32,7 @@ func init() {
 		v1alpha1storage.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1virtual_machine.SchemeBuilder.AddToScheme,
 	)
 }
 

@@ -42,6 +42,13 @@ import (
 	vspherestoragedrsvmoverride "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherestoragedrsvmoverride"
 	vspherevmfsdatastore "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherevmfsdatastore"
 	vspherevmstoragepolicy "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherevmstoragepolicy"
+	vspherecontentlibrary "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherecontentlibrary"
+	vspherecontentlibraryitem "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherecontentlibraryitem"
+	vspherevappcontainer "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherevappcontainer"
+	vspherevappentity "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherevappentity"
+	vspherevirtualdisk "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherevirtualdisk"
+	vspherevirtualmachine "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherevirtualmachine"
+	vspherevirtualmachinesnapshot "github.com/ankasoftco/provider-vsphere/internal/controller/virtual_machine/vspherevirtualmachinesnapshot"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -81,6 +88,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vspherestoragedrsvmoverride.Setup,
 		vspherevmfsdatastore.Setup,
 		vspherevmstoragepolicy.Setup,
+		vspherecontentlibrary.Setup,
+		vspherecontentlibraryitem.Setup,
+		vspherevappcontainer.Setup,
+		vspherevappentity.Setup,
+		vspherevirtualdisk.Setup,
+		vspherevirtualmachine.Setup,
+		vspherevirtualmachinesnapshot.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

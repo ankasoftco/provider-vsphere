@@ -42,6 +42,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"vsphere_storage_drs_vm_override": config.IdentifierFromProvider,
 	"vsphere_vm_storage_policy": config.IdentifierFromProvider,
 	"vsphere_vmfs_datastore": config.IdentifierFromProvider,
+	"vsphere_content_library": config.IdentifierFromProvider,
+	"vsphere_content_library_item": config.IdentifierFromProvider,
+	"vsphere_vapp_container": config.IdentifierFromProvider,
+	"vsphere_vapp_entity": config.IdentifierFromProvider,
+	"vsphere_virtual_disk": config.IdentifierFromProvider,
+	"vsphere_virtual_machine": config.IdentifierFromProvider,
+	"vsphere_virtual_machine_snapshot": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

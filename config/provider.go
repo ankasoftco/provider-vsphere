@@ -32,6 +32,11 @@ import (
 	vSphereStorageDrsVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_storage_drs_vm_override"
 	vSphereVmStoragePolicy "github.com/ankasoftco/provider-vsphere/config/vsphere_vm_storage_policy"
 	vSphereVmfsDatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_vmfs_datastore"
+	vSphereContentLibrary "github.com/ankasoftco/provider-vsphere/config/vsphere_content_library"
+	vSphereVappContainer "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_container"
+	vSphereVappEntity "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_entity"
+	vSphereVirtualDisk "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_disk"
+	vSphereVirtualMachine "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_machine"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -82,6 +87,11 @@ func GetProvider() *ujconfig.Provider {
 		vSphereStorageDrsVmOverride.Configure,
 		vSphereVmStoragePolicy.Configure,
 		vSphereVmfsDatastore.Configure,
+		vSphereContentLibrary.Configure,
+		vSphereVappContainer.Configure,
+		vSphereVappEntity.Configure,
+		vSphereVirtualDisk.Configure,
+		vSphereVirtualMachine.Configure,
 	} {
 		configure(pc)
 	}
