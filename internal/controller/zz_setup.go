@@ -9,6 +9,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	vspherelicense "github.com/ankasoftco/provider-vsphere/internal/controller/administration/vspherelicense"
 	providerconfig "github.com/ankasoftco/provider-vsphere/internal/controller/providerconfig"
 )
 
@@ -16,6 +17,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		vspherelicense.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

@@ -8,8 +8,9 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	ujconfig "github.com/upbound/upjet/pkg/config"
+	vSphereLicense "github.com/ankasoftco/provider-vsphere/config/vsphere_license"
 
+	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
 const (
@@ -35,6 +36,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		vSphereLicense.Configure,
 	} {
 		configure(pc)
 	}
