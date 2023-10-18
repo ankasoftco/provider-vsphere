@@ -23,6 +23,11 @@ import (
 	vspherehost "github.com/ankasoftco/provider-vsphere/internal/controller/host_and_cluster_management/vspherehost"
 	vsphereresourcepool "github.com/ankasoftco/provider-vsphere/internal/controller/host_and_cluster_management/vsphereresourcepool"
 	vspherevnic "github.com/ankasoftco/provider-vsphere/internal/controller/host_and_cluster_management/vspherevnic"
+	vspherecustomattribute "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspherecustomattribute"
+	vspheredatacenter "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspheredatacenter"
+	vspherefolder "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspherefolder"
+	vspheretag "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspheretag"
+	vspheretagcategory "github.com/ankasoftco/provider-vsphere/internal/controller/inventory/vspheretagcategory"
 	providerconfig "github.com/ankasoftco/provider-vsphere/internal/controller/providerconfig"
 )
 
@@ -44,6 +49,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vspherehost.Setup,
 		vsphereresourcepool.Setup,
 		vspherevnic.Setup,
+		vspherecustomattribute.Setup,
+		vspheredatacenter.Setup,
+		vspherefolder.Setup,
+		vspheretag.Setup,
+		vspheretagcategory.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

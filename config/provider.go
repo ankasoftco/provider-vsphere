@@ -16,6 +16,10 @@ import (
 	vSphereHost "github.com/ankasoftco/provider-vsphere/config/vsphere_host"
 	vSphereResourcePool "github.com/ankasoftco/provider-vsphere/config/vsphere_resource_pool"
 	vSphereVnic "github.com/ankasoftco/provider-vsphere/config/vsphere_vnic"
+	vSphereCustomAttribute "github.com/ankasoftco/provider-vsphere/config/vsphere_custom_attribute"
+	vSphereDatacenter "github.com/ankasoftco/provider-vsphere/config/vsphere_datacenter"
+	vSphereFolder "github.com/ankasoftco/provider-vsphere/config/vsphere_folder"
+	vSphereTag "github.com/ankasoftco/provider-vsphere/config/vsphere_tag"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
@@ -51,6 +55,10 @@ func GetProvider() *ujconfig.Provider {
 		vSphereHost.Configure,
 		vSphereResourcePool.Configure,
 		vSphereVnic.Configure,
+		vSphereCustomAttribute.Configure,
+		vSphereDatacenter.Configure,
+		vSphereFolder.Configure,
+		vSphereTag.Configure,
 	} {
 		configure(pc)
 	}
