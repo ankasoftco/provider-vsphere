@@ -11,6 +11,19 @@ import "github.com/upbound/upjet/pkg/config"
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	"vsphere_license": config.IdentifierFromProvider,
+	"vsphere_compute_cluster": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_host_group": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_vm_affinity_rule": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_vm_anti_affinity_rule": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_vm_dependency_rule": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_vm_group": config.IdentifierFromProvider,
+	"vsphere_compute_cluster_vm_host_rule": config.IdentifierFromProvider,
+	"vsphere_dpm_host_override": config.IdentifierFromProvider,
+	"vsphere_drs_vm_override": config.IdentifierFromProvider,
+	"vsphere_ha_vm_override": config.IdentifierFromProvider,
+	"vsphere_host": config.IdentifierFromProvider,
+	"vsphere_resource_pool": config.IdentifierFromProvider,
+	"vsphere_vnic": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

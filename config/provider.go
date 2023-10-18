@@ -9,6 +9,13 @@ import (
 	_ "embed"
 
 	vSphereLicense "github.com/ankasoftco/provider-vsphere/config/vsphere_license"
+	vSphereComputeCluster "github.com/ankasoftco/provider-vsphere/config/vsphere_compute_cluster"
+	vSphereDpmHostOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_dpm_host_override"
+	vSphereDrsVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_drs_vm_override"
+	vSphereHaVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_ha_vm_override"
+	vSphereHost "github.com/ankasoftco/provider-vsphere/config/vsphere_host"
+	vSphereResourcePool "github.com/ankasoftco/provider-vsphere/config/vsphere_resource_pool"
+	vSphereVnic "github.com/ankasoftco/provider-vsphere/config/vsphere_vnic"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
@@ -37,6 +44,13 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		vSphereLicense.Configure,
+		vSphereComputeCluster.Configure,
+		vSphereDpmHostOverride.Configure,
+		vSphereDrsVmOverride.Configure,
+		vSphereHaVmOverride.Configure,
+		vSphereHost.Configure,
+		vSphereResourcePool.Configure,
+		vSphereVnic.Configure,
 	} {
 		configure(pc)
 	}
