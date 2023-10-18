@@ -35,6 +35,13 @@ import (
 	providerconfig "github.com/ankasoftco/provider-vsphere/internal/controller/providerconfig"
 	vsphereentitypermissions "github.com/ankasoftco/provider-vsphere/internal/controller/security/vsphereentitypermissions"
 	vsphererole "github.com/ankasoftco/provider-vsphere/internal/controller/security/vsphererole"
+	vspheredatastorecluster "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspheredatastorecluster"
+	vspheredatastoreclustervmantiaffinityrule "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspheredatastoreclustervmantiaffinityrule"
+	vspherefile "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherefile"
+	vspherenasdatastore "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherenasdatastore"
+	vspherestoragedrsvmoverride "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherestoragedrsvmoverride"
+	vspherevmfsdatastore "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherevmfsdatastore"
+	vspherevmstoragepolicy "github.com/ankasoftco/provider-vsphere/internal/controller/storage/vspherevmstoragepolicy"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -67,6 +74,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		providerconfig.Setup,
 		vsphereentitypermissions.Setup,
 		vsphererole.Setup,
+		vspheredatastorecluster.Setup,
+		vspheredatastoreclustervmantiaffinityrule.Setup,
+		vspherefile.Setup,
+		vspherenasdatastore.Setup,
+		vspherestoragedrsvmoverride.Setup,
+		vspherevmfsdatastore.Setup,
+		vspherevmstoragepolicy.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

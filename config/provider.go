@@ -26,7 +26,12 @@ import (
 	vSphereHostVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_host_virtual_switch"
 	vSphereEntityPermissions "github.com/ankasoftco/provider-vsphere/config/vsphere_entity_permissions"
 	vSphereRole "github.com/ankasoftco/provider-vsphere/config/vsphere_role"
-
+	vSphereDatastoreCluster "github.com/ankasoftco/provider-vsphere/config/vsphere_datastore_cluster"
+	vSphereFile "github.com/ankasoftco/provider-vsphere/config/vsphere_file"
+	vSphereNasDatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_nas_datastore"
+	vSphereStorageDrsVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_storage_drs_vm_override"
+	vSphereVmStoragePolicy "github.com/ankasoftco/provider-vsphere/config/vsphere_vm_storage_policy"
+	vSphereVmfsDatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_vmfs_datastore"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -71,6 +76,12 @@ func GetProvider() *ujconfig.Provider {
 		vSphereHostVirtualSwitch.Configure,
 		vSphereEntityPermissions.Configure,
 		vSphereRole.Configure,
+		vSphereDatastoreCluster.Configure,
+		vSphereFile.Configure,
+		vSphereNasDatastore.Configure,
+		vSphereStorageDrsVmOverride.Configure,
+		vSphereVmStoragePolicy.Configure,
+		vSphereVmfsDatastore.Configure,
 	} {
 		configure(pc)
 	}
