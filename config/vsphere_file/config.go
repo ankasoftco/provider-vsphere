@@ -1,4 +1,4 @@
-package vSphereFile
+package vspherefile
 
 import "github.com/upbound/upjet/pkg/config"
 

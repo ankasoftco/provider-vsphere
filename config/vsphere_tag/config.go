@@ -1,4 +1,4 @@
-package vSphereTag
+package vspheretag
 
 import "github.com/upbound/upjet/pkg/config"
 

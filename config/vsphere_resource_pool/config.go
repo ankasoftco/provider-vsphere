@@ -1,4 +1,4 @@
-package vSphereResourcePool
+package vsphereresourcepool
 
 import "github.com/upbound/upjet/pkg/config"
 

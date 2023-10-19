@@ -1,4 +1,4 @@
-package vSphereDpmHostOverride
+package vspheredpmhostoverride
 
 import "github.com/upbound/upjet/pkg/config"
 

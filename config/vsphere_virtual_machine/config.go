@@ -1,4 +1,4 @@
-package vSphereVirtualMachine
+package vspherevirtualmachine
 
 import "github.com/upbound/upjet/pkg/config"
 

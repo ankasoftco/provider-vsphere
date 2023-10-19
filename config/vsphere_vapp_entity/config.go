@@ -1,4 +1,4 @@
-package vSphereVappEntity
+package vspherevappentity
 
 import "github.com/upbound/upjet/pkg/config"
 

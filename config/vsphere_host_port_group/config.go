@@ -1,4 +1,4 @@
-package vSphereHostPortGroup
+package vspherehostportgroup
 
 import "github.com/upbound/upjet/pkg/config"
 

@@ -1,4 +1,4 @@
-package vSphereVappContainer
+package vspherevappcontainer
 
 import "github.com/upbound/upjet/pkg/config"
 

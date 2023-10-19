@@ -1,4 +1,4 @@
-package vSphereHaVmOverride
+package vspherehavmoverride
 
 import "github.com/upbound/upjet/pkg/config"
 

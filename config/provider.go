@@ -8,35 +8,35 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	vSphereLicense "github.com/ankasoftco/provider-vsphere/config/vsphere_license"
-	vSphereComputeCluster "github.com/ankasoftco/provider-vsphere/config/vsphere_compute_cluster"
-	vSphereDpmHostOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_dpm_host_override"
-	vSphereDrsVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_drs_vm_override"
-	vSphereHaVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_ha_vm_override"
-	vSphereHost "github.com/ankasoftco/provider-vsphere/config/vsphere_host"
-	vSphereResourcePool "github.com/ankasoftco/provider-vsphere/config/vsphere_resource_pool"
-	vSphereVnic "github.com/ankasoftco/provider-vsphere/config/vsphere_vnic"
-	vSphereCustomAttribute "github.com/ankasoftco/provider-vsphere/config/vsphere_custom_attribute"
-	vSphereDatacenter "github.com/ankasoftco/provider-vsphere/config/vsphere_datacenter"
-	vSphereFolder "github.com/ankasoftco/provider-vsphere/config/vsphere_folder"
-	vSphereTag "github.com/ankasoftco/provider-vsphere/config/vsphere_tag"
-	vSphereDistributedPortGroup "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_port_group"
-	vSphereDistributedVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_virtual_switch"
-	vSphereHostPortGroup "github.com/ankasoftco/provider-vsphere/config/vsphere_host_port_group"
-	vSphereHostVirtualSwitch "github.com/ankasoftco/provider-vsphere/config/vsphere_host_virtual_switch"
-	vSphereEntityPermissions "github.com/ankasoftco/provider-vsphere/config/vsphere_entity_permissions"
-	vSphereRole "github.com/ankasoftco/provider-vsphere/config/vsphere_role"
-	vSphereDatastoreCluster "github.com/ankasoftco/provider-vsphere/config/vsphere_datastore_cluster"
-	vSphereFile "github.com/ankasoftco/provider-vsphere/config/vsphere_file"
-	vSphereNasDatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_nas_datastore"
-	vSphereStorageDrsVmOverride "github.com/ankasoftco/provider-vsphere/config/vsphere_storage_drs_vm_override"
-	vSphereVmStoragePolicy "github.com/ankasoftco/provider-vsphere/config/vsphere_vm_storage_policy"
-	vSphereVmfsDatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_vmfs_datastore"
-	vSphereContentLibrary "github.com/ankasoftco/provider-vsphere/config/vsphere_content_library"
-	vSphereVappContainer "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_container"
-	vSphereVappEntity "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_entity"
-	vSphereVirtualDisk "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_disk"
-	vSphereVirtualMachine "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_machine"
+	vspherecomputecluster "github.com/ankasoftco/provider-vsphere/config/vsphere_compute_cluster"
+	vspherecontentlibrary "github.com/ankasoftco/provider-vsphere/config/vsphere_content_library"
+	vspherecustomattribute "github.com/ankasoftco/provider-vsphere/config/vsphere_custom_attribute"
+	vspheredatacenter "github.com/ankasoftco/provider-vsphere/config/vsphere_datacenter"
+	vspheredatastorecluster "github.com/ankasoftco/provider-vsphere/config/vsphere_datastore_cluster"
+	vspheredistributedportgroup "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_port_group"
+	vspheredistributedvirtualswitch "github.com/ankasoftco/provider-vsphere/config/vsphere_distributed_virtual_switch"
+	vspheredpmhostoverride "github.com/ankasoftco/provider-vsphere/config/vsphere_dpm_host_override"
+	vspheredrsvmoverride "github.com/ankasoftco/provider-vsphere/config/vsphere_drs_vm_override"
+	vsphereentitypermissions "github.com/ankasoftco/provider-vsphere/config/vsphere_entity_permissions"
+	vspherefile "github.com/ankasoftco/provider-vsphere/config/vsphere_file"
+	vspherefolder "github.com/ankasoftco/provider-vsphere/config/vsphere_folder"
+	vspherehavmoverride "github.com/ankasoftco/provider-vsphere/config/vsphere_ha_vm_override"
+	vspherehost "github.com/ankasoftco/provider-vsphere/config/vsphere_host"
+	vspherehostportgroup "github.com/ankasoftco/provider-vsphere/config/vsphere_host_port_group"
+	vspherehostvirtualswitch "github.com/ankasoftco/provider-vsphere/config/vsphere_host_virtual_switch"
+	vspherelicense "github.com/ankasoftco/provider-vsphere/config/vsphere_license"
+	vspherenasdatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_nas_datastore"
+	vsphereresourcepool "github.com/ankasoftco/provider-vsphere/config/vsphere_resource_pool"
+	vsphererole "github.com/ankasoftco/provider-vsphere/config/vsphere_role"
+	vspherestoragedrsvmoverride "github.com/ankasoftco/provider-vsphere/config/vsphere_storage_drs_vm_override"
+	vspheretag "github.com/ankasoftco/provider-vsphere/config/vsphere_tag"
+	vspherevappcontainer "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_container"
+	vspherevappentity "github.com/ankasoftco/provider-vsphere/config/vsphere_vapp_entity"
+	vspherevirtualdisk "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_disk"
+	vspherevirtualmachine "github.com/ankasoftco/provider-vsphere/config/vsphere_virtual_machine"
+	vspherevmstoragepolicy "github.com/ankasoftco/provider-vsphere/config/vsphere_vm_storage_policy"
+	vspherevmfsdatastore "github.com/ankasoftco/provider-vsphere/config/vsphere_vmfs_datastore"
+	vspherevnic "github.com/ankasoftco/provider-vsphere/config/vsphere_vnic"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -63,35 +63,35 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		vSphereLicense.Configure,
-		vSphereComputeCluster.Configure,
-		vSphereDpmHostOverride.Configure,
-		vSphereDrsVmOverride.Configure,
-		vSphereHaVmOverride.Configure,
-		vSphereHost.Configure,
-		vSphereResourcePool.Configure,
-		vSphereVnic.Configure,
-		vSphereCustomAttribute.Configure,
-		vSphereDatacenter.Configure,
-		vSphereFolder.Configure,
-		vSphereTag.Configure,
-		vSphereDistributedPortGroup.Configure,
-		vSphereDistributedVirtualSwitch.Configure,
-		vSphereHostPortGroup.Configure,
-		vSphereHostVirtualSwitch.Configure,
-		vSphereEntityPermissions.Configure,
-		vSphereRole.Configure,
-		vSphereDatastoreCluster.Configure,
-		vSphereFile.Configure,
-		vSphereNasDatastore.Configure,
-		vSphereStorageDrsVmOverride.Configure,
-		vSphereVmStoragePolicy.Configure,
-		vSphereVmfsDatastore.Configure,
-		vSphereContentLibrary.Configure,
-		vSphereVappContainer.Configure,
-		vSphereVappEntity.Configure,
-		vSphereVirtualDisk.Configure,
-		vSphereVirtualMachine.Configure,
+		vspherelicense.Configure,
+		vspherecomputecluster.Configure,
+		vspheredpmhostoverride.Configure,
+		vspheredrsvmoverride.Configure,
+		vspherehavmoverride.Configure,
+		vspherehost.Configure,
+		vsphereresourcepool.Configure,
+		vspherevnic.Configure,
+		vspherecustomattribute.Configure,
+		vspheredatacenter.Configure,
+		vspherefolder.Configure,
+		vspheretag.Configure,
+		vspheredistributedportgroup.Configure,
+		vspheredistributedvirtualswitch.Configure,
+		vspherehostportgroup.Configure,
+		vspherehostvirtualswitch.Configure,
+		vsphereentitypermissions.Configure,
+		vsphererole.Configure,
+		vspheredatastorecluster.Configure,
+		vspherefile.Configure,
+		vspherenasdatastore.Configure,
+		vspherestoragedrsvmoverride.Configure,
+		vspherevmstoragepolicy.Configure,
+		vspherevmfsdatastore.Configure,
+		vspherecontentlibrary.Configure,
+		vspherevappcontainer.Configure,
+		vspherevappentity.Configure,
+		vspherevirtualdisk.Configure,
+		vspherevirtualmachine.Configure,
 	} {
 		configure(pc)
 	}

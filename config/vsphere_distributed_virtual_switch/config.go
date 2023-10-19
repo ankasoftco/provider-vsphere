@@ -1,4 +1,4 @@
-package vSphereDistributedVirtualSwitch
+package vspheredistributedvirtualswitch
 
 import "github.com/upbound/upjet/pkg/config"
 

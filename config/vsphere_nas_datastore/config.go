@@ -1,4 +1,4 @@
-package vSphereNasDatastore
+package vspherenasdatastore
 
 import "github.com/upbound/upjet/pkg/config"
 

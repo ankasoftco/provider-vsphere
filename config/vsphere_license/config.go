@@ -1,4 +1,4 @@
-package vSphereLicense
+package vspherelicense
 
 import "github.com/upbound/upjet/pkg/config"
 

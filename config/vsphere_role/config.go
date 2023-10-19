@@ -1,4 +1,4 @@
-package vSphereRole
+package vsphererole
 
 import "github.com/upbound/upjet/pkg/config"
 

@@ -1,4 +1,4 @@
-package vSphereHost
+package vspherehost
 
 import "github.com/upbound/upjet/pkg/config"
 

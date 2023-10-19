@@ -1,4 +1,4 @@
-package vSphereDistributedPortGroup
+package vspheredistributedportgroup
 
 import "github.com/upbound/upjet/pkg/config"
 

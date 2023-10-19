@@ -1,4 +1,4 @@
-package vSphereStorageDrsVmOverride
+package vspherestoragedrsvmoverride
 
 import "github.com/upbound/upjet/pkg/config"
 

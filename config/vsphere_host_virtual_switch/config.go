@@ -1,4 +1,4 @@
-package vSphereHostVirtualSwitch
+package vspherehostvirtualswitch
 
 import "github.com/upbound/upjet/pkg/config"
 

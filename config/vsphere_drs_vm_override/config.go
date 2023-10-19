@@ -1,4 +1,4 @@
-package vSphereDrsVmOverride
+package vspheredrsvmoverride
 
 import "github.com/upbound/upjet/pkg/config"
 

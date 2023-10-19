@@ -1,4 +1,4 @@
-package vSphereVmfsDatastore
+package vspherevmfsdatastore
 
 import "github.com/upbound/upjet/pkg/config"
 

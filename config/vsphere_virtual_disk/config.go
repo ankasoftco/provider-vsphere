@@ -1,4 +1,4 @@
-package vSphereVirtualDisk
+package vspherevirtualdisk
 
 import "github.com/upbound/upjet/pkg/config"
 

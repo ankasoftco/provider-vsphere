@@ -1,4 +1,4 @@
-package vSphereEntityPermissions
+package vsphereentitypermissions
 
 import "github.com/upbound/upjet/pkg/config"
 

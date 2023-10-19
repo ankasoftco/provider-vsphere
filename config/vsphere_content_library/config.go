@@ -1,4 +1,4 @@
-package vSphereContentLibrary
+package vspherecontentlibrary
 
 import "github.com/upbound/upjet/pkg/config"
 

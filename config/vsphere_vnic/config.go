@@ -1,4 +1,4 @@
-package vSphereVnic
+package vspherevnic
 
 import "github.com/upbound/upjet/pkg/config"
 

@@ -1,4 +1,4 @@
-package vSphereDatacenter
+package vspheredatacenter
 
 import "github.com/upbound/upjet/pkg/config"
 
