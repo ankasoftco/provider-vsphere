@@ -2,7 +2,7 @@ package vspherecomputecluster
 
 import "github.com/upbound/upjet/pkg/config"
 
-const shortGroup string = "Host_and_Cluster_Management"
+const shortGroup string = "hostandclustermanagement"
 const version string = "v1alpha1"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.

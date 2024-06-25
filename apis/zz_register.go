@@ -11,28 +11,28 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	v1alpha1 "github.com/ankasoftco/provider-vsphere/apis/administration/v1alpha1"
-	v1alpha1host_and_cluster_management "github.com/ankasoftco/provider-vsphere/apis/host_and_cluster_management/v1alpha1"
+	v1alpha1hostandclustermanagement "github.com/ankasoftco/provider-vsphere/apis/hostandclustermanagement/v1alpha1"
 	v1alpha1inventory "github.com/ankasoftco/provider-vsphere/apis/inventory/v1alpha1"
 	v1alpha1networking "github.com/ankasoftco/provider-vsphere/apis/networking/v1alpha1"
 	v1alpha1security "github.com/ankasoftco/provider-vsphere/apis/security/v1alpha1"
 	v1alpha1storage "github.com/ankasoftco/provider-vsphere/apis/storage/v1alpha1"
 	v1alpha1apis "github.com/ankasoftco/provider-vsphere/apis/v1alpha1"
 	v1beta1 "github.com/ankasoftco/provider-vsphere/apis/v1beta1"
-	v1alpha1virtual_machine "github.com/ankasoftco/provider-vsphere/apis/virtual_machine/v1alpha1"
+	v1alpha1virtualmachine "github.com/ankasoftco/provider-vsphere/apis/virtualmachine/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
-		v1alpha1host_and_cluster_management.SchemeBuilder.AddToScheme,
+		v1alpha1hostandclustermanagement.SchemeBuilder.AddToScheme,
 		v1alpha1inventory.SchemeBuilder.AddToScheme,
 		v1alpha1networking.SchemeBuilder.AddToScheme,
 		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1alpha1storage.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
-		v1alpha1virtual_machine.SchemeBuilder.AddToScheme,
+		v1alpha1virtualmachine.SchemeBuilder.AddToScheme,
 	)
 }
 

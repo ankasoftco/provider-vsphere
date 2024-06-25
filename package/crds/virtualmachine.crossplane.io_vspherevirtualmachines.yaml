@@ -1,0 +1,1821 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: vspherevirtualmachines.virtualmachine.crossplane.io
+spec:
+  group: virtualmachine.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - vsphere
+    kind: VSphereVirtualMachine
+    listKind: VSphereVirtualMachineList
+    plural: vspherevirtualmachines
+    singular: vspherevirtualmachine
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: VSphereVirtualMachine is the Schema for the VSphereVirtualMachines
+          API. <no value>
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: VSphereVirtualMachineSpec defines the desired state of VSphereVirtualMachine
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicy field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  alternateGuestName:
+                    description: The guest name for the operating system when guest_id
+                      is otherGuest or otherGuest64.
+                    type: string
+                  annotation:
+                    description: User-provided description of the virtual machine.
+                    type: string
+                  bootDelay:
+                    description: The number of milliseconds to wait before starting
+                      the boot sequence.
+                    type: number
+                  bootRetryDelay:
+                    description: The number of milliseconds to wait before retrying
+                      the boot sequence. This only valid if boot_retry_enabled is
+                      true.
+                    type: number
+                  bootRetryEnabled:
+                    description: If set to true, a virtual machine that fails to boot
+                      will try again after the delay defined in boot_retry_delay.
+                    type: boolean
+                  cdrom:
+                    description: A specification for a CDROM device on this virtual
+                      machine.
+                    items:
+                      properties:
+                        clientDevice:
+                          description: Indicates whether the device should be mapped
+                            to a remote client device
+                          type: boolean
+                        datastoreId:
+                          description: The datastore ID the ISO is located on.
+                          type: string
+                        path:
+                          description: The path to the ISO file on the datastore.
+                          type: string
+                      type: object
+                    type: array
+                  clone:
+                    description: A specification for cloning a virtual machine from
+                      template.
+                    items:
+                      properties:
+                        customize:
+                          description: The customization spec for this clone. This
+                            allows the user to configure the virtual machine post-clone.
+                          items:
+                            properties:
+                              dnsServerList:
+                                description: The list of DNS servers for a virtual
+                                  network adapter with a static IP address.
+                                items:
+                                  type: string
+                                type: array
+                              dnsSuffixList:
+                                description: A list of DNS search domains to add to
+                                  the DNS configuration on the virtual machine.
+                                items:
+                                  type: string
+                                type: array
+                              ipv4Gateway:
+                                description: The IPv4 default gateway when using network_interface
+                                  customization on the virtual machine. This address
+                                  must be local to a static IPv4 address configured
+                                  in an interface sub-resource.
+                                type: string
+                              ipv6Gateway:
+                                description: The IPv6 default gateway when using network_interface
+                                  customization on the virtual machine. This address
+                                  must be local to a static IPv4 address configured
+                                  in an interface sub-resource.
+                                type: string
+                              linuxOptions:
+                                description: A list of configuration options specific
+                                  to Linux virtual machines.
+                                items:
+                                  properties:
+                                    domain:
+                                      description: The domain name for this virtual
+                                        machine.
+                                      type: string
+                                    hostName:
+                                      description: The hostname for this virtual machine.
+                                      type: string
+                                    hwClockUtc:
+                                      description: Specifies whether or not the hardware
+                                        clock should be in UTC or not.
+                                      type: boolean
+                                    scriptTextSecretRef:
+                                      description: The customization script to run
+                                        before and or after guest customization
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    timeZone:
+                                      description: Customize the time zone on the
+                                        VM. This should be a time zone-style entry,
+                                        like America/Los_Angeles.
+                                      type: string
+                                  required:
+                                  - domain
+                                  - hostName
+                                  type: object
+                                type: array
+                              networkInterface:
+                                description: A specification of network interface
+                                  configuration options.
+                                items:
+                                  properties:
+                                    dnsDomain:
+                                      description: A DNS search domain to add to the
+                                        DNS configuration on the virtual machine.
+                                      type: string
+                                    dnsServerList:
+                                      description: Network-interface specific DNS
+                                        settings for Windows operating systems. Ignored
+                                        on Linux.
+                                      items:
+                                        type: string
+                                      type: array
+                                    ipv4Address:
+                                      description: The IPv4 address assigned to this
+                                        network adapter. If left blank, DHCP is used.
+                                      type: string
+                                    ipv4Netmask:
+                                      description: The IPv4 CIDR netmask for the supplied
+                                        IP address. Ignored if DHCP is selected.
+                                      type: number
+                                    ipv6Address:
+                                      description: The IPv6 address assigned to this
+                                        network adapter. If left blank, default auto-configuration
+                                        is used.
+                                      type: string
+                                    ipv6Netmask:
+                                      description: The IPv6 CIDR netmask for the supplied
+                                        IP address. Ignored if auto-configuration
+                                        is selected.
+                                      type: number
+                                  type: object
+                                type: array
+                              timeout:
+                                description: The amount of time, in minutes, to wait
+                                  for guest OS customization to complete before returning
+                                  with an error. Setting this value to 0 or a negative
+                                  value skips the waiter.
+                                type: number
+                              windowsOptions:
+                                description: A list of configuration options specific
+                                  to Windows virtual machines.
+                                items:
+                                  properties:
+                                    adminPasswordSecretRef:
+                                      description: The new administrator password
+                                        for this virtual machine.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    autoLogon:
+                                      description: Specifies whether or not the VM
+                                        automatically logs on as Administrator.
+                                      type: boolean
+                                    autoLogonCount:
+                                      description: Specifies how many times the VM
+                                        should auto-logon the Administrator account
+                                        when auto_logon is true.
+                                      type: number
+                                    computerName:
+                                      description: The host name for this virtual
+                                        machine.
+                                      type: string
+                                    domainAdminPasswordSecretRef:
+                                      description: The password of the domain administrator
+                                        used to join this virtual machine to the domain.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    domainAdminUser:
+                                      description: The user account of the domain
+                                        administrator used to join this virtual machine
+                                        to the domain.
+                                      type: string
+                                    fullName:
+                                      description: The full name of the user of this
+                                        virtual machine.
+                                      type: string
+                                    joinDomain:
+                                      description: The domain that the virtual machine
+                                        should join.
+                                      type: string
+                                    organizationName:
+                                      description: The organization name this virtual
+                                        machine is being installed for.
+                                      type: string
+                                    productKeySecretRef:
+                                      description: The product key for this virtual
+                                        machine.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    runOnceCommandList:
+                                      description: A list of commands to run at first
+                                        user logon, after guest customization.
+                                      items:
+                                        type: string
+                                      type: array
+                                    timeZone:
+                                      description: The new time zone for the virtual
+                                        machine. This is a sysprep-dictated timezone
+                                        code.
+                                      type: number
+                                    workgroup:
+                                      description: The workgroup for this virtual
+                                        machine if not joining a domain.
+                                      type: string
+                                  required:
+                                  - computerName
+                                  type: object
+                                type: array
+                              windowsSysprepTextSecretRef:
+                                description: Use this option to specify a windows
+                                  sysprep file directly.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
+                            type: object
+                          type: array
+                        linkedClone:
+                          description: Whether or not to create a linked clone when
+                            cloning. When this option is used, the source VM must
+                            have a single snapshot associated with it.
+                          type: boolean
+                        ovfNetworkMap:
+                          additionalProperties:
+                            type: string
+                          description: Mapping of ovf networks to the networks to
+                            use in vSphere.
+                          type: object
+                        ovfStorageMap:
+                          additionalProperties:
+                            type: string
+                          description: Mapping of ovf storage to the datastores to
+                            use in vSphere.
+                          type: object
+                        templateUuid:
+                          description: The UUID of the source virtual machine or template.
+                          type: string
+                        timeout:
+                          description: The timeout, in minutes, to wait for the virtual
+                            machine clone to complete.
+                          type: number
+                      required:
+                      - templateUuid
+                      type: object
+                    type: array
+                  cpuHotAddEnabled:
+                    description: Allow CPUs to be added to this virtual machine while
+                      it is running.
+                    type: boolean
+                  cpuHotRemoveEnabled:
+                    description: Allow CPUs to be added to this virtual machine while
+                      it is running.
+                    type: boolean
+                  cpuLimit:
+                    description: The maximum amount of memory (in MB) or CPU (in MHz)
+                      that this virtual machine can consume, regardless of available
+                      resources.
+                    type: number
+                  cpuPerformanceCountersEnabled:
+                    description: Enable CPU performance counters on this virtual machine.
+                    type: boolean
+                  cpuReservation:
+                    description: The amount of memory (in MB) or CPU (in MHz) that
+                      this virtual machine is guaranteed.
+                    type: number
+                  cpuShareCount:
+                    description: The amount of shares to allocate to cpu for a custom
+                      share level.
+                    type: number
+                  cpuShareLevel:
+                    description: The allocation level for cpu resources. Can be one
+                      of high, low, normal, or custom.
+                    type: string
+                  customAttributes:
+                    additionalProperties:
+                      type: string
+                    description: A list of custom attributes to set on this resource.
+                    type: object
+                  datacenterId:
+                    description: The ID of the datacenter where the VM is to be created.
+                    type: string
+                  datastoreClusterId:
+                    description: The ID of a datastore cluster to put the virtual
+                      machine in.
+                    type: string
+                  datastoreId:
+                    description: The ID of the virtual machine's datastore. The virtual
+                      machine configuration is placed here, along with any virtual
+                      disks that are created without datastores.
+                    type: string
+                  disk:
+                    description: A specification for a virtual disk device on this
+                      virtual machine.
+                    items:
+                      properties:
+                        attach:
+                          description: If this is true, the disk is attached instead
+                            of created. Implies keep_on_remove.
+                          type: boolean
+                        controllerType:
+                          description: The type of controller the disk should be connected
+                            to. Must be 'scsi', 'sata', or 'ide'.
+                          type: string
+                        datastoreId:
+                          description: The datastore ID for this virtual disk, if
+                            different than the virtual machine.
+                          type: string
+                        diskMode:
+                          description: The mode of this this virtual disk for purposes
+                            of writes and snapshotting. Can be one of append, independent_nonpersistent,
+                            independent_persistent, nonpersistent, persistent, or
+                            undoable.
+                          type: string
+                        diskSharing:
+                          description: The sharing mode of this virtual disk. Can
+                            be one of sharingMultiWriter or sharingNone.
+                          type: string
+                        eagerlyScrub:
+                          description: The virtual disk file zeroing policy when thin_provision
+                            is not true. The default is false, which lazily-zeros
+                            the disk, speeding up thick-provisioned disk creation
+                            time.
+                          type: boolean
+                        ioLimit:
+                          description: The upper limit of IOPS that this disk can
+                            use.
+                          type: number
+                        ioReservation:
+                          description: The I/O guarantee that this disk has, in IOPS.
+                          type: number
+                        ioShareCount:
+                          description: The share count for this disk when the share
+                            level is custom.
+                          type: number
+                        ioShareLevel:
+                          description: The share allocation level for this disk. Can
+                            be one of low, normal, high, or custom.
+                          type: string
+                        keepOnRemove:
+                          description: Set to true to keep the underlying VMDK file
+                            when removing this virtual disk from configuration.
+                          type: boolean
+                        label:
+                          description: A unique label for this disk.
+                          type: string
+                        path:
+                          description: The full path of the virtual disk. This can
+                            only be provided if attach is set to true, otherwise it
+                            is a read-only value.
+                          type: string
+                        size:
+                          description: The size of the disk, in GB.
+                          type: number
+                        storagePolicyId:
+                          description: The ID of the storage policy to assign to the
+                            virtual disk in VM.
+                          type: string
+                        thinProvisioned:
+                          description: If true, this disk is thin provisioned, with
+                            space for the file being allocated on an as-needed basis.
+                          type: boolean
+                        unitNumber:
+                          description: The unique device number for this disk. This
+                            number determines where on the SCSI bus this device will
+                            be attached.
+                          type: number
+                        writeThrough:
+                          description: If true, writes for this disk are sent directly
+                            to the filesystem immediately instead of being buffered.
+                          type: boolean
+                      required:
+                      - label
+                      type: object
+                    type: array
+                  efiSecureBootEnabled:
+                    description: When the boot type set in firmware is efi, this enables
+                      EFI secure boot.
+                    type: boolean
+                  enableDiskUuid:
+                    description: Expose the UUIDs of attached virtual disks to the
+                      virtual machine, allowing access to them in the guest.
+                    type: boolean
+                  enableLogging:
+                    description: Enable logging on this virtual machine.
+                    type: boolean
+                  eptRviMode:
+                    description: The EPT/RVI (hardware memory virtualization) setting
+                      for this virtual machine. Can be one of automatic, on, or off.
+                    type: string
+                  extraConfig:
+                    additionalProperties:
+                      type: string
+                    description: Extra configuration data for this virtual machine.
+                      Can be used to supply advanced parameters not normally in configuration,
+                      such as instance metadata, or configuration data for OVF images.
+                    type: object
+                  extraConfigRebootRequired:
+                    description: Allow the virtual machine to be rebooted when a change
+                      to `extra_config` occurs.
+                    type: boolean
+                  firmware:
+                    description: The firmware interface to use on the virtual machine.
+                      Can be one of bios or efi.
+                    type: string
+                  folder:
+                    description: The name of the folder to locate the virtual machine
+                      in.
+                    type: string
+                  forcePowerOff:
+                    description: Set to true to force power-off a virtual machine
+                      if a graceful guest shutdown failed for a necessary operation.
+                    type: boolean
+                  guestId:
+                    description: The guest ID for the operating system.
+                    type: string
+                  hardwareVersion:
+                    description: The hardware version for the virtual machine.
+                    type: number
+                  hostSystemId:
+                    description: The ID of an optional host system to pin the virtual
+                      machine to.
+                    type: string
+                  hvMode:
+                    description: The (non-nested) hardware virtualization setting
+                      for this virtual machine. Can be one of hvAuto, hvOn, or hvOff.
+                    type: string
+                  ideControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  ignoredGuestIps:
+                    description: List of IP addresses and CIDR networks to ignore
+                      while waiting for an IP
+                    items:
+                      type: string
+                    type: array
+                  latencySensitivity:
+                    description: Controls the scheduling delay of the virtual machine.
+                      Use a higher sensitivity for applications that require lower
+                      latency, such as VOIP, media player applications, or applications
+                      that require frequent access to mouse or keyboard devices. Can
+                      be one of low, normal, medium, or high.
+                    type: string
+                  memory:
+                    description: The size of the virtual machine's memory, in MB.
+                    type: number
+                  memoryHotAddEnabled:
+                    description: Allow memory to be added to this virtual machine
+                      while it is running.
+                    type: boolean
+                  memoryLimit:
+                    description: The maximum amount of memory (in MB) or CPU (in MHz)
+                      that this virtual machine can consume, regardless of available
+                      resources.
+                    type: number
+                  memoryReservation:
+                    description: The amount of memory (in MB) or CPU (in MHz) that
+                      this virtual machine is guaranteed.
+                    type: number
+                  memoryShareCount:
+                    description: The amount of shares to allocate to memory for a
+                      custom share level.
+                    type: number
+                  memoryShareLevel:
+                    description: The allocation level for memory resources. Can be
+                      one of high, low, normal, or custom.
+                    type: string
+                  migrateWaitTimeout:
+                    description: The amount of time, in minutes, to wait for a vMotion
+                      operation to complete before failing.
+                    type: number
+                  name:
+                    description: The name of this virtual machine.
+                    type: string
+                  nestedHvEnabled:
+                    description: Enable nested hardware virtualization on this virtual
+                      machine, facilitating nested virtualization in the guest.
+                    type: boolean
+                  networkInterface:
+                    description: A specification for a virtual NIC on this virtual
+                      machine.
+                    items:
+                      properties:
+                        adapterType:
+                          description: The controller type. Can be one of e1000, e1000e,
+                            vmxnet3, or vrdma.
+                          type: string
+                        bandwidthLimit:
+                          description: The upper bandwidth limit of this network interface,
+                            in Mbits/sec.
+                          type: number
+                        bandwidthReservation:
+                          description: The bandwidth reservation of this network interface,
+                            in Mbits/sec.
+                          type: number
+                        bandwidthShareCount:
+                          description: The share count for this network interface
+                            when the share level is custom.
+                          type: number
+                        bandwidthShareLevel:
+                          description: The bandwidth share allocation level for this
+                            interface. Can be one of low, normal, high, or custom.
+                          type: string
+                        macAddress:
+                          description: The MAC address of this network interface.
+                            Can only be manually set if use_static_mac is true.
+                          type: string
+                        networkId:
+                          description: The ID of the network to connect this network
+                            interface to.
+                          type: string
+                        ovfMapping:
+                          description: Mapping of network interface to OVF network.
+                          type: string
+                        useStaticMac:
+                          description: If true, the mac_address field is treated as
+                            a static MAC address and set accordingly.
+                          type: boolean
+                      required:
+                      - networkId
+                      type: object
+                    type: array
+                  numCoresPerSocket:
+                    description: The number of cores to distribute amongst the CPUs
+                      in this virtual machine. If specified, the value supplied to
+                      num_cpus must be evenly divisible by this value.
+                    type: number
+                  numCpus:
+                    description: The number of virtual processors to assign to this
+                      virtual machine.
+                    type: number
+                  ovfDeploy:
+                    description: A specification for deploying a virtual machine from
+                      ovf/ova template.
+                    items:
+                      properties:
+                        allowUnverifiedSslCert:
+                          description: Allow unverified ssl certificates while deploying
+                            ovf/ova from url.
+                          type: boolean
+                        deploymentOption:
+                          description: The Deployment option to be chosen. If empty,
+                            the default option is used.
+                          type: string
+                        diskProvisioning:
+                          description: An optional disk provisioning. If set, all
+                            the disks in the deployed ovf will have the same specified
+                            disk type (e.g., thin provisioned).
+                          type: string
+                        enableHiddenProperties:
+                          description: Allow properties with ovf:userConfigurable=false
+                            to be set.
+                          type: boolean
+                        ipAllocationPolicy:
+                          description: The IP allocation policy.
+                          type: string
+                        ipProtocol:
+                          description: The IP protocol.
+                          type: string
+                        localOvfPath:
+                          description: The absolute path to the ovf/ova file in the
+                            local system.
+                          type: string
+                        ovfNetworkMap:
+                          additionalProperties:
+                            type: string
+                          description: The mapping of name of network identifiers
+                            from the ovf descriptor to network UUID in the VI infrastructure.
+                          type: object
+                        remoteOvfUrl:
+                          description: URL to the remote ovf/ova file to be deployed.
+                          type: string
+                      type: object
+                    type: array
+                  pciDeviceId:
+                    description: A list of PCI passthrough devices
+                    items:
+                      type: string
+                    type: array
+                  poweronTimeout:
+                    description: The amount of time, in seconds, that we will be trying
+                      to power on a VM
+                    type: number
+                  replaceTrigger:
+                    description: Triggers replacement of resource whenever it changes.
+                    type: string
+                  resourcePoolId:
+                    description: The ID of a resource pool to put the virtual machine
+                      in.
+                    type: string
+                  runToolsScriptsAfterPowerOn:
+                    description: Enable the run of scripts after virtual machine power-on
+                      when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsAfterResume:
+                    description: Enable the run of scripts after virtual machine resume
+                      when when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestReboot:
+                    description: Enable the run of scripts before guest operating
+                      system reboot when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestShutdown:
+                    description: Enable the run of scripts before guest operating
+                      system shutdown when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestStandby:
+                    description: Enable the run of scripts before guest operating
+                      system standby when VMware Tools is installed.
+                    type: boolean
+                  sataControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  scsiBusSharing:
+                    description: Mode for sharing the SCSI bus. The modes are physicalSharing,
+                      virtualSharing, and noSharing.
+                    type: string
+                  scsiControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  scsiType:
+                    description: The type of SCSI bus this virtual machine will have.
+                      Can be one of lsilogic, lsilogic-sas or pvscsi.
+                    type: string
+                  shutdownWaitTimeout:
+                    description: The amount of time, in minutes, to wait for shutdown
+                      when making necessary updates to the virtual machine.
+                    type: number
+                  storagePolicyId:
+                    description: The ID of the storage policy to assign to the virtual
+                      machine home directory.
+                    type: string
+                  swapPlacementPolicy:
+                    description: The swap file placement policy for this virtual machine.
+                      Can be one of inherit, hostLocal, or vmDirectory.
+                    type: string
+                  syncTimeWithHost:
+                    description: Enable guest clock synchronization with the host.
+                      On vSphere 7.0 U1 and above, with only this setting the clock
+                      is synchronized on startup and resume. Requires VMware Tools
+                      to be installed.
+                    type: boolean
+                  syncTimeWithHostPeriodically:
+                    description: Enable periodic clock synchronization with the host.
+                      Supported only on vSphere 7.0 U1 and above. On prior versions
+                      setting `sync_time_with_host` is enough for periodic synchronization.
+                      Requires VMware Tools to be installed.
+                    type: boolean
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
+                  toolsUpgradePolicy:
+                    description: Set the upgrade policy for VMware Tools. Can be one
+                      of `manual` or `upgradeAtPowerCycle`.
+                    type: string
+                  vapp:
+                    description: vApp configuration data for this virtual machine.
+                      Can be used to provide configuration data for OVF images.
+                    items:
+                      properties:
+                        properties:
+                          additionalProperties:
+                            type: string
+                          description: A map of customizable vApp properties and their
+                            values. Allows customization of VMs cloned from OVF templates
+                            which have customizable vApp properties.
+                          type: object
+                      type: object
+                    type: array
+                  vbsEnabled:
+                    description: Flag to specify if Virtualization-based security
+                      is enabled for this virtual machine.
+                    type: boolean
+                  vvtdEnabled:
+                    description: Flag to specify if I/O MMU virtualization, also called
+                      Intel Virtualization Technology for Directed I/O (VT-d) and
+                      AMD I/O Virtualization (AMD-Vi or IOMMU), is enabled.
+                    type: boolean
+                  waitForGuestIpTimeout:
+                    description: The amount of time, in minutes, to wait for an available
+                      IP address on this virtual machine. A value less than 1 disables
+                      the waiter.
+                    type: number
+                  waitForGuestNetRoutable:
+                    description: Controls whether or not the guest network waiter
+                      waits for a routable address. When false, the waiter does not
+                      wait for a default gateway, nor are IP addresses checked against
+                      any discovered default gateways as part of its success criteria.
+                    type: boolean
+                  waitForGuestNetTimeout:
+                    description: The amount of time, in minutes, to wait for an available
+                      IP address on this virtual machine. A value less than 1 disables
+                      the waiter.
+                    type: number
+                type: object
+              managementPolicy:
+                default: FullControl
+                description: 'THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. ManagementPolicy
+                  specifies the level of control Crossplane has over the managed external
+                  resource. This field is planned to replace the DeletionPolicy field
+                  in a future release. Currently, both could be set independently
+                  and non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - FullControl
+                - ObserveOnly
+                - OrphanOnDelete
+                type: string
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: name is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.name)
+            - message: resourcePoolId is a required parameter
+              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.resourcePoolId)
+          status:
+            description: VSphereVirtualMachineStatus defines the observed state of
+              VSphereVirtualMachine.
+            properties:
+              atProvider:
+                properties:
+                  alternateGuestName:
+                    description: The guest name for the operating system when guest_id
+                      is otherGuest or otherGuest64.
+                    type: string
+                  annotation:
+                    description: User-provided description of the virtual machine.
+                    type: string
+                  bootDelay:
+                    description: The number of milliseconds to wait before starting
+                      the boot sequence.
+                    type: number
+                  bootRetryDelay:
+                    description: The number of milliseconds to wait before retrying
+                      the boot sequence. This only valid if boot_retry_enabled is
+                      true.
+                    type: number
+                  bootRetryEnabled:
+                    description: If set to true, a virtual machine that fails to boot
+                      will try again after the delay defined in boot_retry_delay.
+                    type: boolean
+                  cdrom:
+                    description: A specification for a CDROM device on this virtual
+                      machine.
+                    items:
+                      properties:
+                        clientDevice:
+                          description: Indicates whether the device should be mapped
+                            to a remote client device
+                          type: boolean
+                        datastoreId:
+                          description: The datastore ID the ISO is located on.
+                          type: string
+                        deviceAddress:
+                          description: 'The internally-computed address of this device,
+                            such as scsi:0:1, denoting scsi bus #0 and device unit
+                            1.'
+                          type: string
+                        key:
+                          description: The unique device ID for this device within
+                            its virtual machine.
+                          type: number
+                        path:
+                          description: The path to the ISO file on the datastore.
+                          type: string
+                      type: object
+                    type: array
+                  changeVersion:
+                    description: A unique identifier for a given version of the last
+                      configuration applied, such the timestamp of the last update
+                      to the configuration.
+                    type: string
+                  clone:
+                    description: A specification for cloning a virtual machine from
+                      template.
+                    items:
+                      properties:
+                        customize:
+                          description: The customization spec for this clone. This
+                            allows the user to configure the virtual machine post-clone.
+                          items:
+                            properties:
+                              dnsServerList:
+                                description: The list of DNS servers for a virtual
+                                  network adapter with a static IP address.
+                                items:
+                                  type: string
+                                type: array
+                              dnsSuffixList:
+                                description: A list of DNS search domains to add to
+                                  the DNS configuration on the virtual machine.
+                                items:
+                                  type: string
+                                type: array
+                              ipv4Gateway:
+                                description: The IPv4 default gateway when using network_interface
+                                  customization on the virtual machine. This address
+                                  must be local to a static IPv4 address configured
+                                  in an interface sub-resource.
+                                type: string
+                              ipv6Gateway:
+                                description: The IPv6 default gateway when using network_interface
+                                  customization on the virtual machine. This address
+                                  must be local to a static IPv4 address configured
+                                  in an interface sub-resource.
+                                type: string
+                              linuxOptions:
+                                description: A list of configuration options specific
+                                  to Linux virtual machines.
+                                items:
+                                  properties:
+                                    domain:
+                                      description: The domain name for this virtual
+                                        machine.
+                                      type: string
+                                    hostName:
+                                      description: The hostname for this virtual machine.
+                                      type: string
+                                    hwClockUtc:
+                                      description: Specifies whether or not the hardware
+                                        clock should be in UTC or not.
+                                      type: boolean
+                                    timeZone:
+                                      description: Customize the time zone on the
+                                        VM. This should be a time zone-style entry,
+                                        like America/Los_Angeles.
+                                      type: string
+                                  type: object
+                                type: array
+                              networkInterface:
+                                description: A specification of network interface
+                                  configuration options.
+                                items:
+                                  properties:
+                                    dnsDomain:
+                                      description: A DNS search domain to add to the
+                                        DNS configuration on the virtual machine.
+                                      type: string
+                                    dnsServerList:
+                                      description: Network-interface specific DNS
+                                        settings for Windows operating systems. Ignored
+                                        on Linux.
+                                      items:
+                                        type: string
+                                      type: array
+                                    ipv4Address:
+                                      description: The IPv4 address assigned to this
+                                        network adapter. If left blank, DHCP is used.
+                                      type: string
+                                    ipv4Netmask:
+                                      description: The IPv4 CIDR netmask for the supplied
+                                        IP address. Ignored if DHCP is selected.
+                                      type: number
+                                    ipv6Address:
+                                      description: The IPv6 address assigned to this
+                                        network adapter. If left blank, default auto-configuration
+                                        is used.
+                                      type: string
+                                    ipv6Netmask:
+                                      description: The IPv6 CIDR netmask for the supplied
+                                        IP address. Ignored if auto-configuration
+                                        is selected.
+                                      type: number
+                                  type: object
+                                type: array
+                              timeout:
+                                description: The amount of time, in minutes, to wait
+                                  for guest OS customization to complete before returning
+                                  with an error. Setting this value to 0 or a negative
+                                  value skips the waiter.
+                                type: number
+                              windowsOptions:
+                                description: A list of configuration options specific
+                                  to Windows virtual machines.
+                                items:
+                                  properties:
+                                    autoLogon:
+                                      description: Specifies whether or not the VM
+                                        automatically logs on as Administrator.
+                                      type: boolean
+                                    autoLogonCount:
+                                      description: Specifies how many times the VM
+                                        should auto-logon the Administrator account
+                                        when auto_logon is true.
+                                      type: number
+                                    computerName:
+                                      description: The host name for this virtual
+                                        machine.
+                                      type: string
+                                    domainAdminUser:
+                                      description: The user account of the domain
+                                        administrator used to join this virtual machine
+                                        to the domain.
+                                      type: string
+                                    fullName:
+                                      description: The full name of the user of this
+                                        virtual machine.
+                                      type: string
+                                    joinDomain:
+                                      description: The domain that the virtual machine
+                                        should join.
+                                      type: string
+                                    organizationName:
+                                      description: The organization name this virtual
+                                        machine is being installed for.
+                                      type: string
+                                    runOnceCommandList:
+                                      description: A list of commands to run at first
+                                        user logon, after guest customization.
+                                      items:
+                                        type: string
+                                      type: array
+                                    timeZone:
+                                      description: The new time zone for the virtual
+                                        machine. This is a sysprep-dictated timezone
+                                        code.
+                                      type: number
+                                    workgroup:
+                                      description: The workgroup for this virtual
+                                        machine if not joining a domain.
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        linkedClone:
+                          description: Whether or not to create a linked clone when
+                            cloning. When this option is used, the source VM must
+                            have a single snapshot associated with it.
+                          type: boolean
+                        ovfNetworkMap:
+                          additionalProperties:
+                            type: string
+                          description: Mapping of ovf networks to the networks to
+                            use in vSphere.
+                          type: object
+                        ovfStorageMap:
+                          additionalProperties:
+                            type: string
+                          description: Mapping of ovf storage to the datastores to
+                            use in vSphere.
+                          type: object
+                        templateUuid:
+                          description: The UUID of the source virtual machine or template.
+                          type: string
+                        timeout:
+                          description: The timeout, in minutes, to wait for the virtual
+                            machine clone to complete.
+                          type: number
+                      type: object
+                    type: array
+                  cpuHotAddEnabled:
+                    description: Allow CPUs to be added to this virtual machine while
+                      it is running.
+                    type: boolean
+                  cpuHotRemoveEnabled:
+                    description: Allow CPUs to be added to this virtual machine while
+                      it is running.
+                    type: boolean
+                  cpuLimit:
+                    description: The maximum amount of memory (in MB) or CPU (in MHz)
+                      that this virtual machine can consume, regardless of available
+                      resources.
+                    type: number
+                  cpuPerformanceCountersEnabled:
+                    description: Enable CPU performance counters on this virtual machine.
+                    type: boolean
+                  cpuReservation:
+                    description: The amount of memory (in MB) or CPU (in MHz) that
+                      this virtual machine is guaranteed.
+                    type: number
+                  cpuShareCount:
+                    description: The amount of shares to allocate to cpu for a custom
+                      share level.
+                    type: number
+                  cpuShareLevel:
+                    description: The allocation level for cpu resources. Can be one
+                      of high, low, normal, or custom.
+                    type: string
+                  customAttributes:
+                    additionalProperties:
+                      type: string
+                    description: A list of custom attributes to set on this resource.
+                    type: object
+                  datacenterId:
+                    description: The ID of the datacenter where the VM is to be created.
+                    type: string
+                  datastoreClusterId:
+                    description: The ID of a datastore cluster to put the virtual
+                      machine in.
+                    type: string
+                  datastoreId:
+                    description: The ID of the virtual machine's datastore. The virtual
+                      machine configuration is placed here, along with any virtual
+                      disks that are created without datastores.
+                    type: string
+                  defaultIpAddress:
+                    type: string
+                  disk:
+                    description: A specification for a virtual disk device on this
+                      virtual machine.
+                    items:
+                      properties:
+                        attach:
+                          description: If this is true, the disk is attached instead
+                            of created. Implies keep_on_remove.
+                          type: boolean
+                        controllerType:
+                          description: The type of controller the disk should be connected
+                            to. Must be 'scsi', 'sata', or 'ide'.
+                          type: string
+                        datastoreId:
+                          description: The datastore ID for this virtual disk, if
+                            different than the virtual machine.
+                          type: string
+                        deviceAddress:
+                          description: 'The internally-computed address of this device,
+                            such as scsi:0:1, denoting scsi bus #0 and device unit
+                            1.'
+                          type: string
+                        diskMode:
+                          description: The mode of this this virtual disk for purposes
+                            of writes and snapshotting. Can be one of append, independent_nonpersistent,
+                            independent_persistent, nonpersistent, persistent, or
+                            undoable.
+                          type: string
+                        diskSharing:
+                          description: The sharing mode of this virtual disk. Can
+                            be one of sharingMultiWriter or sharingNone.
+                          type: string
+                        eagerlyScrub:
+                          description: The virtual disk file zeroing policy when thin_provision
+                            is not true. The default is false, which lazily-zeros
+                            the disk, speeding up thick-provisioned disk creation
+                            time.
+                          type: boolean
+                        ioLimit:
+                          description: The upper limit of IOPS that this disk can
+                            use.
+                          type: number
+                        ioReservation:
+                          description: The I/O guarantee that this disk has, in IOPS.
+                          type: number
+                        ioShareCount:
+                          description: The share count for this disk when the share
+                            level is custom.
+                          type: number
+                        ioShareLevel:
+                          description: The share allocation level for this disk. Can
+                            be one of low, normal, high, or custom.
+                          type: string
+                        keepOnRemove:
+                          description: Set to true to keep the underlying VMDK file
+                            when removing this virtual disk from configuration.
+                          type: boolean
+                        key:
+                          description: The unique device ID for this device within
+                            its virtual machine.
+                          type: number
+                        label:
+                          description: A unique label for this disk.
+                          type: string
+                        path:
+                          description: The full path of the virtual disk. This can
+                            only be provided if attach is set to true, otherwise it
+                            is a read-only value.
+                          type: string
+                        size:
+                          description: The size of the disk, in GB.
+                          type: number
+                        storagePolicyId:
+                          description: The ID of the storage policy to assign to the
+                            virtual disk in VM.
+                          type: string
+                        thinProvisioned:
+                          description: If true, this disk is thin provisioned, with
+                            space for the file being allocated on an as-needed basis.
+                          type: boolean
+                        unitNumber:
+                          description: The unique device number for this disk. This
+                            number determines where on the SCSI bus this device will
+                            be attached.
+                          type: number
+                        uuid:
+                          description: The UUID of the virtual disk.
+                          type: string
+                        writeThrough:
+                          description: If true, writes for this disk are sent directly
+                            to the filesystem immediately instead of being buffered.
+                          type: boolean
+                      type: object
+                    type: array
+                  efiSecureBootEnabled:
+                    description: When the boot type set in firmware is efi, this enables
+                      EFI secure boot.
+                    type: boolean
+                  enableDiskUuid:
+                    description: Expose the UUIDs of attached virtual disks to the
+                      virtual machine, allowing access to them in the guest.
+                    type: boolean
+                  enableLogging:
+                    description: Enable logging on this virtual machine.
+                    type: boolean
+                  eptRviMode:
+                    description: The EPT/RVI (hardware memory virtualization) setting
+                      for this virtual machine. Can be one of automatic, on, or off.
+                    type: string
+                  extraConfig:
+                    additionalProperties:
+                      type: string
+                    description: Extra configuration data for this virtual machine.
+                      Can be used to supply advanced parameters not normally in configuration,
+                      such as instance metadata, or configuration data for OVF images.
+                    type: object
+                  extraConfigRebootRequired:
+                    description: Allow the virtual machine to be rebooted when a change
+                      to `extra_config` occurs.
+                    type: boolean
+                  firmware:
+                    description: The firmware interface to use on the virtual machine.
+                      Can be one of bios or efi.
+                    type: string
+                  folder:
+                    description: The name of the folder to locate the virtual machine
+                      in.
+                    type: string
+                  forcePowerOff:
+                    description: Set to true to force power-off a virtual machine
+                      if a graceful guest shutdown failed for a necessary operation.
+                    type: boolean
+                  guestId:
+                    description: The guest ID for the operating system.
+                    type: string
+                  guestIpAddresses:
+                    description: The current list of IP addresses on this virtual
+                      machine.
+                    items:
+                      type: string
+                    type: array
+                  hardwareVersion:
+                    description: The hardware version for the virtual machine.
+                    type: number
+                  hostSystemId:
+                    description: The ID of an optional host system to pin the virtual
+                      machine to.
+                    type: string
+                  hvMode:
+                    description: The (non-nested) hardware virtualization setting
+                      for this virtual machine. Can be one of hvAuto, hvOn, or hvOff.
+                    type: string
+                  id:
+                    type: string
+                  ideControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  ignoredGuestIps:
+                    description: List of IP addresses and CIDR networks to ignore
+                      while waiting for an IP
+                    items:
+                      type: string
+                    type: array
+                  imported:
+                    description: Reset after the first post-import or post-upgrade
+                      apply.
+                    type: boolean
+                  latencySensitivity:
+                    description: Controls the scheduling delay of the virtual machine.
+                      Use a higher sensitivity for applications that require lower
+                      latency, such as VOIP, media player applications, or applications
+                      that require frequent access to mouse or keyboard devices. Can
+                      be one of low, normal, medium, or high.
+                    type: string
+                  memory:
+                    description: The size of the virtual machine's memory, in MB.
+                    type: number
+                  memoryHotAddEnabled:
+                    description: Allow memory to be added to this virtual machine
+                      while it is running.
+                    type: boolean
+                  memoryLimit:
+                    description: The maximum amount of memory (in MB) or CPU (in MHz)
+                      that this virtual machine can consume, regardless of available
+                      resources.
+                    type: number
+                  memoryReservation:
+                    description: The amount of memory (in MB) or CPU (in MHz) that
+                      this virtual machine is guaranteed.
+                    type: number
+                  memoryShareCount:
+                    description: The amount of shares to allocate to memory for a
+                      custom share level.
+                    type: number
+                  memoryShareLevel:
+                    description: The allocation level for memory resources. Can be
+                      one of high, low, normal, or custom.
+                    type: string
+                  migrateWaitTimeout:
+                    description: The amount of time, in minutes, to wait for a vMotion
+                      operation to complete before failing.
+                    type: number
+                  moid:
+                    description: The machine object ID from VMware vSphere.
+                    type: string
+                  name:
+                    description: The name of this virtual machine.
+                    type: string
+                  nestedHvEnabled:
+                    description: Enable nested hardware virtualization on this virtual
+                      machine, facilitating nested virtualization in the guest.
+                    type: boolean
+                  networkInterface:
+                    description: A specification for a virtual NIC on this virtual
+                      machine.
+                    items:
+                      properties:
+                        adapterType:
+                          description: The controller type. Can be one of e1000, e1000e,
+                            vmxnet3, or vrdma.
+                          type: string
+                        bandwidthLimit:
+                          description: The upper bandwidth limit of this network interface,
+                            in Mbits/sec.
+                          type: number
+                        bandwidthReservation:
+                          description: The bandwidth reservation of this network interface,
+                            in Mbits/sec.
+                          type: number
+                        bandwidthShareCount:
+                          description: The share count for this network interface
+                            when the share level is custom.
+                          type: number
+                        bandwidthShareLevel:
+                          description: The bandwidth share allocation level for this
+                            interface. Can be one of low, normal, high, or custom.
+                          type: string
+                        deviceAddress:
+                          description: 'The internally-computed address of this device,
+                            such as scsi:0:1, denoting scsi bus #0 and device unit
+                            1.'
+                          type: string
+                        key:
+                          description: The unique device ID for this device within
+                            its virtual machine.
+                          type: number
+                        macAddress:
+                          description: The MAC address of this network interface.
+                            Can only be manually set if use_static_mac is true.
+                          type: string
+                        networkId:
+                          description: The ID of the network to connect this network
+                            interface to.
+                          type: string
+                        ovfMapping:
+                          description: Mapping of network interface to OVF network.
+                          type: string
+                        useStaticMac:
+                          description: If true, the mac_address field is treated as
+                            a static MAC address and set accordingly.
+                          type: boolean
+                      type: object
+                    type: array
+                  numCoresPerSocket:
+                    description: The number of cores to distribute amongst the CPUs
+                      in this virtual machine. If specified, the value supplied to
+                      num_cpus must be evenly divisible by this value.
+                    type: number
+                  numCpus:
+                    description: The number of virtual processors to assign to this
+                      virtual machine.
+                    type: number
+                  ovfDeploy:
+                    description: A specification for deploying a virtual machine from
+                      ovf/ova template.
+                    items:
+                      properties:
+                        allowUnverifiedSslCert:
+                          description: Allow unverified ssl certificates while deploying
+                            ovf/ova from url.
+                          type: boolean
+                        deploymentOption:
+                          description: The Deployment option to be chosen. If empty,
+                            the default option is used.
+                          type: string
+                        diskProvisioning:
+                          description: An optional disk provisioning. If set, all
+                            the disks in the deployed ovf will have the same specified
+                            disk type (e.g., thin provisioned).
+                          type: string
+                        enableHiddenProperties:
+                          description: Allow properties with ovf:userConfigurable=false
+                            to be set.
+                          type: boolean
+                        ipAllocationPolicy:
+                          description: The IP allocation policy.
+                          type: string
+                        ipProtocol:
+                          description: The IP protocol.
+                          type: string
+                        localOvfPath:
+                          description: The absolute path to the ovf/ova file in the
+                            local system.
+                          type: string
+                        ovfNetworkMap:
+                          additionalProperties:
+                            type: string
+                          description: The mapping of name of network identifiers
+                            from the ovf descriptor to network UUID in the VI infrastructure.
+                          type: object
+                        remoteOvfUrl:
+                          description: URL to the remote ovf/ova file to be deployed.
+                          type: string
+                      type: object
+                    type: array
+                  pciDeviceId:
+                    description: A list of PCI passthrough devices
+                    items:
+                      type: string
+                    type: array
+                  powerState:
+                    description: The power state of the virtual machine.
+                    type: string
+                  poweronTimeout:
+                    description: The amount of time, in seconds, that we will be trying
+                      to power on a VM
+                    type: number
+                  rebootRequired:
+                    type: boolean
+                  replaceTrigger:
+                    description: Triggers replacement of resource whenever it changes.
+                    type: string
+                  resourcePoolId:
+                    description: The ID of a resource pool to put the virtual machine
+                      in.
+                    type: string
+                  runToolsScriptsAfterPowerOn:
+                    description: Enable the run of scripts after virtual machine power-on
+                      when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsAfterResume:
+                    description: Enable the run of scripts after virtual machine resume
+                      when when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestReboot:
+                    description: Enable the run of scripts before guest operating
+                      system reboot when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestShutdown:
+                    description: Enable the run of scripts before guest operating
+                      system shutdown when VMware Tools is installed.
+                    type: boolean
+                  runToolsScriptsBeforeGuestStandby:
+                    description: Enable the run of scripts before guest operating
+                      system standby when VMware Tools is installed.
+                    type: boolean
+                  sataControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  scsiBusSharing:
+                    description: Mode for sharing the SCSI bus. The modes are physicalSharing,
+                      virtualSharing, and noSharing.
+                    type: string
+                  scsiControllerCount:
+                    description: This directly affects the amount of disks you can
+                      add to the virtual machine and the maximum disk unit number.
+                      Note that lowering this value does not remove controllers.
+                    type: number
+                  scsiType:
+                    description: The type of SCSI bus this virtual machine will have.
+                      Can be one of lsilogic, lsilogic-sas or pvscsi.
+                    type: string
+                  shutdownWaitTimeout:
+                    description: The amount of time, in minutes, to wait for shutdown
+                      when making necessary updates to the virtual machine.
+                    type: number
+                  storagePolicyId:
+                    description: The ID of the storage policy to assign to the virtual
+                      machine home directory.
+                    type: string
+                  swapPlacementPolicy:
+                    description: The swap file placement policy for this virtual machine.
+                      Can be one of inherit, hostLocal, or vmDirectory.
+                    type: string
+                  syncTimeWithHost:
+                    description: Enable guest clock synchronization with the host.
+                      On vSphere 7.0 U1 and above, with only this setting the clock
+                      is synchronized on startup and resume. Requires VMware Tools
+                      to be installed.
+                    type: boolean
+                  syncTimeWithHostPeriodically:
+                    description: Enable periodic clock synchronization with the host.
+                      Supported only on vSphere 7.0 U1 and above. On prior versions
+                      setting `sync_time_with_host` is enough for periodic synchronization.
+                      Requires VMware Tools to be installed.
+                    type: boolean
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
+                  toolsUpgradePolicy:
+                    description: Set the upgrade policy for VMware Tools. Can be one
+                      of `manual` or `upgradeAtPowerCycle`.
+                    type: string
+                  uuid:
+                    description: The UUID of the virtual machine. Also exposed as
+                      the ID of the resource.
+                    type: string
+                  vapp:
+                    description: vApp configuration data for this virtual machine.
+                      Can be used to provide configuration data for OVF images.
+                    items:
+                      properties:
+                        properties:
+                          additionalProperties:
+                            type: string
+                          description: A map of customizable vApp properties and their
+                            values. Allows customization of VMs cloned from OVF templates
+                            which have customizable vApp properties.
+                          type: object
+                      type: object
+                    type: array
+                  vappTransport:
+                    description: vApp transport methods supported by virtual machine.
+                    items:
+                      type: string
+                    type: array
+                  vbsEnabled:
+                    description: Flag to specify if Virtualization-based security
+                      is enabled for this virtual machine.
+                    type: boolean
+                  vmwareToolsStatus:
+                    description: The state of VMware Tools in the guest. This will
+                      determine the proper course of action for some device operations.
+                    type: string
+                  vmxPath:
+                    description: The path of the virtual machine's configuration file
+                      in the VM's datastore.
+                    type: string
+                  vvtdEnabled:
+                    description: Flag to specify if I/O MMU virtualization, also called
+                      Intel Virtualization Technology for Directed I/O (VT-d) and
+                      AMD I/O Virtualization (AMD-Vi or IOMMU), is enabled.
+                    type: boolean
+                  waitForGuestIpTimeout:
+                    description: The amount of time, in minutes, to wait for an available
+                      IP address on this virtual machine. A value less than 1 disables
+                      the waiter.
+                    type: number
+                  waitForGuestNetRoutable:
+                    description: Controls whether or not the guest network waiter
+                      waits for a routable address. When false, the waiter does not
+                      wait for a default gateway, nor are IP addresses checked against
+                      any discovered default gateways as part of its success criteria.
+                    type: boolean
+                  waitForGuestNetTimeout:
+                    description: The amount of time, in minutes, to wait for an available
+                      IP address on this virtual machine. A value less than 1 disables
+                      the waiter.
+                    type: number
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
