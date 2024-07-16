@@ -10,7 +10,7 @@ metadata:
       VMware vSphere Crossplane provider adds support for
       managing vSphere resources in Kubernetes.
     meta.crossplane.io/readme: |
-      `provider-vcd` is the Crossplane infrastructure provider for [VMware vSphere]
+      `provider-vsphere` is the Crossplane infrastructure provider for [VMware vSphere]
       (https://www.vmware.com/products/vsphere.html).
       If you encounter an issue please reach out on
       [slack.crossplane.io](https://slack.crossplane.io) and create an issue in
