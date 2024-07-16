@@ -2,3 +2,18 @@ apiVersion: meta.pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-vsphere
+  annotations:
+    meta.crossplane.io/maintainer: Crossplane Maintainers <support@ankasoft.co>
+    meta.crossplane.io/source: github.com/ankasoftco/provider-vsphere
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: |
+      VMware vSphere Crossplane provider adds support for
+      managing vSphere resources in Kubernetes.
+    meta.crossplane.io/readme: |
+      `provider-vcd` is the Crossplane infrastructure provider for [VMware vSphere]
+      (https://www.vmware.com/products/vsphere.html).
+      If you encounter an issue please reach out on
+      [slack.crossplane.io](https://slack.crossplane.io) and create an issue in
+      the
+      [ankasoftco/provider-vsphere](https://github.com/ankasoftco/provider-vsphere)
+      repo.
