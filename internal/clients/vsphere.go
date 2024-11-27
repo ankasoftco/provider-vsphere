@@ -27,6 +27,9 @@ const (
 	errUnmarshalCredentials = "cannot unmarshal vsphere credentials as JSON"
 )
 
+var reqFields = []string{"user", "password", "vsphere_server"}
+var optFields = []string{"allow_unverified_ssl", "vim_keep_alive", "api_timeout"}
+
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
@@ -62,11 +65,18 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{}
+		// Required fields
+		for _, req := range reqFields {
+			ps.Configuration[req] = creds[req]
+		}
+		// Optional fields
+		for _, opt := range optFields {
+			if v, ok := creds[opt]; ok {
+				ps.Configuration[opt] = v
+			}
+		}
+
 		return ps, nil
 	}
 }
