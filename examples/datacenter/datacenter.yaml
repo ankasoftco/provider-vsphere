@@ -1,0 +1,11 @@
+apiVersion: inventory.crossplane.io/v1alpha1
+kind: VSphereDatacenter
+metadata:
+  name: example-datacenter
+spec:
+  forProvider:
+    name: my-datacenter
+  providerRef:
+    name: vsphere
+  providerConfigRef:
+    name: vsphere
